@@ -12,15 +12,19 @@ export class FinanceOfficerService {
 
   constructor(private http: HttpClient) { }
 
-  financeOfficerLogin(username: string, password: string): Observable<any> {
-    return this.http.get(`${this.url}/validatingFinanceOfficer/${username}/${password}`);
-  }
+  // financeOfficerLogin(username: string, password: string): Observable<any> {
+  //   return this.http.get(`${this.url}/validatingFinanceOfficer/${username}/${password}`);
+  // }
 
   getLoanApplicationList(): Observable<any> {
     return this.http.get(this.baseURL);
   }
   updateStatus(id: number,value: any): Observable<any> {
     return this.http.put(`${this.updateURL}${id}`,value);
+  }
+
+  financeOfficerLogin(credentials : any): Observable<any> {
+    return this.http.post(`${this.url}/login`,credentials);
   }
 
 }

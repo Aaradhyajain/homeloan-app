@@ -8,8 +8,10 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./customer-login.component.css']
 })
 export class CustomerLoginComponent implements OnInit {
-  username:string = '';
-  password:string = '';
+  credential ={
+    username : '',
+    password : ''
+  }
 
   constructor(private customerService: CustomerService, private loginService: LoginService) { }
 
@@ -17,20 +19,16 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   save():void {
-    this.customerService.customerLogin(this.username,this.password).subscribe(
+    this.customerService.customerLogin(this.credential).subscribe(
       result=>{
-        if(result){
-          this.loginService.loginCustomer();
-          localStorage.setItem('username',this.username);
+          this.loginService.loginCustomer(result.token);
+          localStorage.setItem('username',this.credential.username);
           window.location.href="/customer/home";
-        }
-        else{
-          alert("Invalid Credintails !!!! \nPlease Enter correct Username and Password");
-          window.location.href="/customerLogin";
-        }
       },
       error=>{
+        alert("Invalid Credintails !!!! \nPlease Enter correct UserName and Password");
         console.log('error: ',error);
+        window.location.href="/customerLogin";
       }
     )
   }

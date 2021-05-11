@@ -13,9 +13,9 @@ export class LandOfficerService {
   constructor(private http: HttpClient) { }
 
   // return this.httpClient.get(`${this.empApi}${id}`);
-  landOfficerLogin(username: string, password: string): Observable<any> {
-    return this.http.get(`${this.url}/validatingLandOfficer/${username}/${password}`);
-  }
+  // landOfficerLogin(username: string, password: string): Observable<any> {
+  //   return this.http.get(`${this.url}/validatingLandOfficer/${username}/${password}`);
+  // }
 
   getLoanApplicationList(): Observable<any> {
     return this.http.get(this.baseURL);
@@ -23,5 +23,9 @@ export class LandOfficerService {
 
   updateStatus(id: number,value: any): Observable<any> {
     return this.http.put(`${this.updateURL}${id}`,value);
+  }
+
+  landOfficerLogin(credentials : any): Observable<any> {
+    return this.http.post(`${this.url}/login`,credentials);
   }
 }

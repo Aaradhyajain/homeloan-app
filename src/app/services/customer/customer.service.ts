@@ -12,9 +12,9 @@ export class CustomerService {
   constructor(private http: HttpClient) {
   }
 
-  customerLogin(username: string, password: string): Observable<any> {
-    return this.http.get(`${this.url}/validatingCustomer/${username}/${password}`);
-  }
+  // customerLogin(username: string, password: string): Observable<any> {
+  //   return this.http.get(`${this.url}/validatingCustomer/${username}/${password}`);
+  // }
 
   addCustomer(customer: Customer): Observable<any> {
     return this.http.post(`${this.url}/addCustomer`, customer);
@@ -39,4 +39,8 @@ export class CustomerService {
    getLoanAgreement(loanApplicationId:number):Observable<any>{
      return this.http.get(`${this.url}/loanAgreement/${loanApplicationId}`)
    }
+
+  customerLogin(credentials : any): Observable<any> {
+    return this.http.post(`${this.url}/login`,credentials);
+  }
 }
