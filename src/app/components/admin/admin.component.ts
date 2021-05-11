@@ -56,6 +56,10 @@ export class AdminComponent implements OnInit {
       result => {
         alert("Update Sucessfully!!!")
         this.getList()
+      },
+      error => {
+        console.log(error);
+        alert("Can not update Application Status\nWAITING_FOR_OFFICER_APPROVAL")
       });
   }
   viewAllAdmin(): void {
@@ -67,7 +71,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteCustomer(id: number): void {
-    confirm("Please confirm to delete the customer !!!");
+    console.log(id);
     this.adminService.deleteCustomer(id).subscribe(
       result => {
         alert("Customer Deleted");
