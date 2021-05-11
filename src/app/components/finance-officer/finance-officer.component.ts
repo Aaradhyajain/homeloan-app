@@ -29,14 +29,17 @@ export class FinanceOfficerComponent implements OnInit {
         console.log(this.loanApplication)
       });
   }
-  
-  updateList(id:number): void {
-    this.financeOfficerService.updateStatus(id,id).subscribe(
+
+  updateList(id: number): void {
+    this.financeOfficerService.updateStatus(id, id).subscribe(
       result => {
         alert("Update Sucessfully!!!")
         this.getList()
+      },
+      error => {
+        console.log(error);
+        alert("Can not update Application Status\nWAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL")
       });
-
   }
 
 }

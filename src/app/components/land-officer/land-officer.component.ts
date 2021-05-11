@@ -23,7 +23,6 @@ export class LandOfficerComponent implements OnInit {
 
   }
 
-
   loanApplicationList: LoanApplication[] = [];
   num !: number;
   getList(): void {
