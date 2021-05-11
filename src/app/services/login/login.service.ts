@@ -7,20 +7,24 @@ export class LoginService {
 
   constructor() { }
 
-  loginCustomer() {
+  loginCustomer(token : string) {
     localStorage.setItem('login', 'customer');
+    localStorage.setItem('token',token);
   }
 
-  loginAdmin() {
+  loginAdmin(token:string) {
     localStorage.setItem('login', 'admin');
+    localStorage.setItem('token',token);
   }
 
-  loginFinanceOfficer() {
+  loginFinanceOfficer(token: string) {
     localStorage.setItem('login', 'financeOfficer');
+    localStorage.setItem('token',token);
   }
 
-  loginLandOfficer() {
+  loginLandOfficer(token:string) {
     localStorage.setItem('login', 'landOfficer');
+    localStorage.setItem('token',token);
   }
 
   isCustomerLoggedIn(): boolean {
@@ -54,6 +58,11 @@ export class LoginService {
   logout() {
     localStorage.removeItem('login')
     localStorage.removeItem('username');
+    localStorage.removeItem('token');
+  }
+
+  getToken(){
+    return localStorage.getItem("token");
   }
 
 }

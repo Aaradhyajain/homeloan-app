@@ -21,9 +21,9 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  adminLogin(username: string, password: string): Observable<any> {
-    return this.http.get(`${this.url}/validatingAdmin/${username}/${password}`);
-  }
+  // adminLogin(username: string, password: string): Observable<any> {
+  //   return this.http.get(`${this.url}/validatingAdmin/${username}/${password}`);
+  // }
 
   getLoanApplicationList(): Observable<any> {
     return this.http.get(this.baseURL);
@@ -42,12 +42,17 @@ export class AdminService {
   }
   addAdmin(admin:Admin): Observable<any> {
     return this.http.post(`${this.addAdminURL}`,admin)
-}
+  }
   viewAllAdmin(): Observable<any> {
     return this.http.get(`${this.viewAllAdminURL}`)
-   }
+  }
    getCustomerList(): Observable<any> {
     return this.http.get(this.allCustURL);
   }
+
+  adminLogin(credentials : any): Observable<any> {
+    return this.http.post(`${this.url}/login`,credentials);
+  }
+
 
 }

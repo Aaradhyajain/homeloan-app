@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,9 @@ import { AdminLoginComponent } from './components/login/admin-login/admin-login.
 import { LandOfficerLoginComponent } from './components/login/land-officer-login/land-officer-login.component';
 import { FinanceOfficerLoginComponent } from './components/login/finance-officer-login/finance-officer-login.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { LandOfficerService } from './services/land-officer/land-officer.service';
+import { LandOfficerAuthGuard } from './guards/land-officer-auth.guard';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: 
+  [
+    [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

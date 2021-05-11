@@ -8,8 +8,11 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./finance-officer-login.component.css']
 })
 export class FinanceOfficerLoginComponent implements OnInit {
-  username:string = '';
-  password:string = '';
+  credential ={
+    username : '',
+    password : ''
+  }
+
 
   constructor(private financeOfficerServic: FinanceOfficerService, private loginService: LoginService) { }
 
@@ -17,20 +20,16 @@ export class FinanceOfficerLoginComponent implements OnInit {
   }
 
   save():void {
-    this.financeOfficerServic.financeOfficerLogin(this.username,this.password).subscribe(
+    this.financeOfficerServic.financeOfficerLogin(this.credential).subscribe(
       result=>{
-        if(result){
-          this.loginService.loginFinanceOfficer();
-          localStorage.setItem('username',this.username);
+          this.loginService.loginFinanceOfficer(result.token);
+          localStorage.setItem('username',this.credential.username);
           window.location.href="/financeOfficer";
-        }
-        else{
-          alert("Invalid Credintails !!!! \n Please Enter correct UserName and Password");
-          window.location.href="/financeOfficerLogin";
-        }
       },
       error=>{
+        alert("Invalid Credintails !!!! \nPlease Enter correct UserName and Password");
         console.log('error: ',error);
+        window.location.href="/financeOfficerLogin";
       }
     )
   }

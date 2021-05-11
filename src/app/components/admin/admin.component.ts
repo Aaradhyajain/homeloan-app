@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
 
   showList: boolean = false;
   showCustomer: boolean = false;
-  showAdmin=false;
+  showAdmin = false;
   landOfficer = new LandVerificationOfficer();
   financeOfficer = new FinanceVerificationOfficer();
   admin = new Admin();
@@ -48,8 +48,8 @@ export class AdminComponent implements OnInit {
   toggleCustomer(): void {
     this.showCustomer = !this.showCustomer;
   }
-    toggleAdmin(): void {
-      this.showAdmin = !this.showAdmin;
+  toggleAdmin(): void {
+    this.showAdmin = !this.showAdmin;
   }
   updateList(id: number): void {
     this.adminService.updateStatus(id, id).subscribe(
@@ -77,22 +77,29 @@ export class AdminComponent implements OnInit {
   }
   addlandclick() {
     this.adminService.addLandOfficerDetail(this.landOfficer).subscribe(
-      result => alert("Land Officer Details Added"),
+      result => {
+        alert("Land Officer Details Added");
+        window.location.href = "/admin";
+      },
     );
   }
   addfinclick() {
     this.adminService.addFinanceOfficerDetail(this.financeOfficer).subscribe(
-      result => alert("Finance Officer Details Added"),
+      result => {
+        alert("Finance Officer Details Added");
+        window.location.href = "/admin";
+      }
     );
   }
 
   addAdmin() {
     this.adminService.addAdmin(this.admin).subscribe(
-      result => alert("Admin Added"),
+      result => {
+        alert("Admin Added");
+        window.location.href = "/admin";
+      }
     );
   }
-
-
 
   ngOnInit(): void {
   }

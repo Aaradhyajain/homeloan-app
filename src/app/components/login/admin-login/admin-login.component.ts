@@ -8,8 +8,10 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-  username:string = '';
-  password:string = '';
+  credential ={
+    username : '',
+    password : ''
+  }
 
   constructor(private adminService: AdminService,private loginService: LoginService) { }
 
@@ -17,20 +19,17 @@ export class AdminLoginComponent implements OnInit {
   }
 
   save():void {
-    this.adminService.adminLogin(this.username,this.password).subscribe(
+    this.adminService.adminLogin(this.credential).subscribe(
       result=>{
-        if(result){
-          this.loginService.loginAdmin();
-          localStorage.setItem('username',this.username);
+          console.log("Result: ",result.token);
+          this.loginService.loginAdmin(result.token);
+          localStorage.setItem('username',this.credential.username);
           window.location.href="/admin";
-        }
-        else{
-          alert("Invalid Credintails !!!! \nPlease Enter correct UserName and Password");
-          window.location.href="/adminLogin";
-        }
       },
       error=>{
+        alert("Invalid Credintails !!!! \nPlease Enter correct UserName and Password");
         console.log('error: ',error);
+        window.location.href="/adminLogin";
       }
     )
   }

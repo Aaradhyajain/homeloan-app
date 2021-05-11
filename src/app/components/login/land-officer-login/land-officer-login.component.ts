@@ -8,8 +8,10 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./land-officer-login.component.css']
 })
 export class LandOfficerLoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
+  credential ={
+    username : '',
+    password : ''
+  }
 
   constructor(private landOfficerService: LandOfficerService, private loginService: LoginService) { }
 
@@ -17,20 +19,17 @@ export class LandOfficerLoginComponent implements OnInit {
   }
 
   save(): void {
-    this.landOfficerService.landOfficerLogin(this.username, this.password).subscribe(
+    this.landOfficerService.landOfficerLogin(this.credential).subscribe(
       result => {
-        if (result) {
-          this.loginService.loginLandOfficer();
-          localStorage.setItem('username', this.username);
+          console.log("Result: ",result.token);
+          this.loginService.loginLandOfficer(result.token);
+          localStorage.setItem('username', this.credential.username);
           window.location.href = "/landOfficer";
-        }
-        else {
-          alert("Invalid Credintails !!!! \n Please Enter correct UserName and Password");
-          window.location.href = "/landOfficerLogin";
-        }
       },
-      error => {
-        console.log('error: ', error);
+      error=>{
+        alert("Invalid Credintails !!!! \nPlease Enter correct UserName and Password");
+        console.log('error: ',error);
+        window.location.href="/landOfficerLogin";
       }
     )
   }
